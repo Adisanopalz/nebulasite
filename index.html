@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nebula Universe | Premium Experience</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. LUXURY VARIABLES --- */
+        :root {
+            --bg-deep: #030407;
+            --primary: #7000ff;
+            --secondary: #00d2ff;
+            --text-main: #ffffff;
+            --text-muted: #8892b0;
+            
+            /* Glass Premium: Lebih transparan, blur lebih tinggi */
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- 2. TEXTURE & AMBIENT LIGHTING (Rahasia "Mahal") --- */
+        
+        /* Noise Overlay: Memberi tekstur "film" */
+        .noise-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 999; opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Glowing Orbs: Bola cahaya ungu/biru di background */
+        .ambient-light {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(112, 0, 255, 0.15), transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(0, 210, 255, 0.1), transparent 40%);
+            animation: pulseLight 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseLight {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* Stars (Design 1 retained) */
+        .stars {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background: transparent;
+        }
+        .star-layer {
+            position: absolute; width: 1px; height: 1px; background: white;
+            box-shadow: 10vw 10vh #fff, 30vw 30vh #fff, 50vw 10vh #fff, 70vw 50vh #fff, 90vw 20vh #fff;
+            animation: floatUp 60s linear infinite;
+        }
+        @keyframes floatUp { from { transform: translateY(0); } to { transform: translateY(-100vh); } }
+
+        /* --- 3. PREMIUM COMPONENTS --- */
+        
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 30px; }
+        
+        /* Section Title: Kombinasi Solid & Outline */
+        .section-header {
+            text-align: center; margin-bottom: 80px; position: relative;
+        }
+        .section-title {
+            font-size: 3rem; font-weight: 800; letter-spacing: -1px;
+            background: linear-gradient(to right, #fff, #b0b0b0);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .section-subtitle {
+            font-size: 1rem; text-transform: uppercase; letter-spacing: 4px;
+            color: var(--secondary); margin-bottom: 10px; font-weight: 600;
+        }
+
+        /* Ultra Glass Card */
+        .premium-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            border-left: 1px solid var(--glass-border);
+            border-right: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            border-radius: 24px;
+            padding: 40px 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; overflow: hidden;
+        }
+
+        /* Glow effect on hover */
+        .premium-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: 0.5s;
+        }
+        .premium-card:hover::before { left: 100%; }
+
+        .premium-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-top-color: var(--glass-highlight);
+        }
+
+        .icon-glow {
+            font-size: 2.5rem; margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(112, 0, 255, 0.4));
+        }
+
+        /* Button: "Shine" Effect */
+        .btn-luxury {
+            position: relative; padding: 16px 40px; border-radius: 100px;
+            background: white; color: black; font-weight: 700; text-decoration: none;
+            overflow: hidden; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-luxury::after {
+            content: ''; position: absolute; top: 0; left: -50px; width: 20px; height: 100%;
+            background: white; opacity: 0.4; filter: blur(10px);
+            transform: skewX(-20deg); animation: shimmer 3s infinite;
+        }
+        .btn-luxury:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255,255,255,0.3); }
+
+        .btn-outline {
+            padding: 14px 38px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.2);
+            color: white; font-weight: 600; text-decoration: none; transition: 0.3s;
+        }
+        .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.05); }
+
+        @keyframes shimmer { 0% { left: -50px; } 20% { left: 150%; } 100% { left: 150%; } }
+
+        /* --- 4. GRID SYSTEM --- */
+        .grid-6 {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+        }
+
+        /* --- 5. NAVBAR --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            padding: 25px 0; transition: 0.3s;
+        }
+        nav.scrolled {
+            background: rgba(3, 4, 7, 0.85); backdrop-filter: blur(15px);
+            padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; }
+        
+        .hamburger { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a { 
+            color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; letter-spacing: 1px;
+            text-transform: uppercase; font-weight: 600; transition: 0.3s;
+        }
+        .nav-links a:hover { color: white; }
+
+        /* --- 6. HERO TYPOGRAPHY (The Main Event) --- */
+        .hero {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; position: relative;
+        }
+        .hero-title {
+            font-size: 6rem; line-height: 0.9; font-weight: 800; letter-spacing: -3px; margin-bottom: 20px;
+        }
+        /* Efek Teks Outline */
+        .hero-title span {
+            display: block;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+            color: transparent;
+            transition: 0.5s;
+        }
+        .hero-title span:first-child { 
+            color: white; -webkit-text-stroke: 0; /* Solid */
+        }
+        .hero:hover .hero-title span:last-child {
+            color: rgba(255,255,255,0.1); /* Isi sedikit saat hover */
+            letter-spacing: 5px; /* Sedikit melebar */
+        }
+
+        /* --- 7. RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .grid-6 { grid-template-columns: repeat(2, 1fr); }
+            .hero-title { font-size: 4rem; }
+        }
+        @media (max-width: 768px) {
+            .grid-6 { grid-template-columns: 1fr; }
+            .hero-title { font-size: 3rem; }
+            .hamburger { display: block; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 80%; height: 100vh;
+                background: #050505; flex-direction: column; justify-content: center;
+                align-items: center; transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+                border-left: 1px solid rgba(255,255,255,0.1);
+            }
+            .nav-links.active { right: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+    <div class="ambient-light"></div>
+    <div class="stars"><div class="star-layer"></div></div>
+
+    <nav id="navbar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">NEBULAVERSE</div>
+            <div class="hamburger" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#store">Store</a></li>
+                <li><a href="#docs">Docs</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero">
+        <div class="container">
+            <div style="margin-bottom: 20px; color: var(--secondary); letter-spacing: 3px; font-weight: 600;">EST. 2024</div>
+            <h1 class="hero-title">
+                <span>NEBULA</span>
+                <span>UNIVERSE</span>
+            </h1>
+            <p style="max-width: 500px; margin: 0 auto 40px; color: var(--text-muted); line-height: 1.8;">
+                Pengalaman Minecraft Survival tingkat lanjut. Ekonomi galaksi yang stabil, proteksi aset mutlak, dan komunitas elit.
+            </p>
+            <div>
+                <a href="minecraft://play.nebulaverse.xyz:19132" class="btn-luxury" onclick="copyIP()">
+                    <span>PLAY NOW</span> <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="https://dc.gg/nebulaverse" class="btn-outline" style="margin-left: 15px;">DISCORD</a>
+            </div>
+            <div style="margin-top: 30px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; color: rgba(255,255,255,0.4);">
+                IP: <span style="color:white; border-bottom: 1px dotted rgba(255,255,255,0.3);">play.nebulaverse.xyz</span> &bull; 
+                <span style="color: #00ff88;">● Online</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" style="padding: 100px 0;">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Why Choose Us</div>
+                <h2 class="section-title">The Ecosystem</h2>
+            </div>
+            <div class="grid-6">
+                <div class="premium-card">
+                    <i class="fa-solid fa-layer-group icon-glow"></i>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">Cross-Play</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Akses server dari Java Edition & Bedrock (PE/Console) tanpa hambatan.</p>
+                </div>
+                <div class="premium-card">
+                    <i class="fa-solid fa-microchip icon-glow"></i>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">Ryzen Powered</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Performa tanpa kompromi dengan hardware Ryzen 9 Dedicated.</p>
+                </div>
+                <div class="premium-card">
+                    <i class="fa-solid fa-fingerprint icon-glow"></i>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">Secure ID</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Sistem login enkripsi untuk melindungi aset dan progressmu.</p>
+                </div>
+                <div class="premium-card">
+                    <i class="fa-solid fa-gem icon-glow"></i>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">Cosmic Economy</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Sistem pasar yang diatur player dengan inflasi terkontrol.</p>
+                </div>
+                <div class="premium-card">
+                    <i class="fa-solid fa-meteor icon-glow"></i>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">Slimefun +</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Ratusan mesin dan item teknologi baru tanpa perlu install mods.</p>
+                </div>
+                <div class="premium-card">
+                    <i class="fa-solid fa-trophy icon-glow"></i>
+                    <h3 style="font-size: 1.2rem; margin-bottom: 10px;">Tournaments</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Kompetisi PVP dan Building bulanan dengan hadiah uang tunai.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="store" style="padding: 100px 0; background: rgba(255,255,255,0.01);">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle">Marketplace</div>
+                <h2 class="section-title">Premium Rank</h2>
+            </div>
+            <div class="grid-6">
+                <div class="premium-card" style="text-align: center;">
+                    <div style="font-family: 'Space Grotesk'; color: var(--secondary); font-size: 0.9rem; margin-bottom: 10px;">MONTHLY</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">ASTRO</h3>
+                    <div style="font-size: 2rem; font-weight: 800; margin: 20px 0;">10.000<span style="font-size: 1rem; color: #888;">IDR</span></div>
+                    <a href="#" class="btn-outline" style="width: 100%; display: block;">Purchase</a>
+                </div>
+                
+                <div class="premium-card" style="text-align: center;">
+                    <div style="font-family: 'Space Grotesk'; color: #bcaaa4; font-size: 0.9rem; margin-bottom: 10px;">MONTHLY</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">TITAN</h3>
+                    <div style="font-size: 2rem; font-weight: 800; margin: 20px 0;">50.000<span style="font-size: 1rem; color: #888;">IDR</span></div>
+                    <a href="#" class="btn-outline" style="width: 100%; display: block;">Purchase</a>
+                </div>
+
+                <div class="premium-card" style="text-align: center;">
+                    <div style="font-family: 'Space Grotesk'; color: var(--primary); font-size: 0.9rem; margin-bottom: 10px;">KEYS</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">3x RARE</h3>
+                    <div style="font-size: 2rem; font-weight: 800; margin: 20px 0;">5.000<span style="font-size: 1rem; color: #888;">IDR</span></div>
+                    <a href="#" class="btn-outline" style="width: 100%; display: block;">Purchase</a>
+                </div>
+
+                <div class="premium-card" style="text-align: center;">
+                    <div style="font-family: 'Space Grotesk'; color: #ff9f43; font-size: 0.9rem; margin-bottom: 10px;">CURRENCY</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">50k COINS</h3>
+                    <div style="font-size: 2rem; font-weight: 800; margin: 20px 0;">15<span style="font-size: 1rem; color: #888;">K IDR</span></div>
+                    <a href="#" class="btn-outline" style="width: 100%; display: block;">Purchase</a>
+                </div>
+
+                <div class="premium-card" style="text-align: center;">
+                    <div style="font-family: 'Space Grotesk'; color: #00d2d3; font-size: 0.9rem; margin-bottom: 10px;">PERK</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">FLY MODE</h3>
+                    <div style="font-size: 2rem; font-weight: 800; margin: 20px 0;">30<span style="font-size: 1rem; color: #888;">K IDR</span></div>
+                    <a href="#" class="btn-outline" style="width: 100%; display: block;">Purchase</a>
+                </div>
+
+                <div class="premium-card" style="text-align: center;">
+                    <div style="font-family: 'Space Grotesk'; color: #ff6b6b; font-size: 0.9rem; margin-bottom: 10px;">BOOSTER</div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Battle Pass</h3>
+                    <div style="font-size: 2rem; font-weight: 800; margin: 20px 0;">75<span style="font-size: 1rem; color: #888;">K IDR</span></div>
+                    <a href="#" class="btn-outline" style="width: 100%; display: block;">Purchase</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 50px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 20px;">NEBULAVERSE.ID</h2>
+            <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 30px;">
+                <a href="#" style="color:white; font-size: 1.2rem; opacity: 0.5; transition: 0.3s;"><i class="fa-brands fa-discord"></i></a>
+                <a href="#" style="color:white; font-size: 1.2rem; opacity: 0.5; transition: 0.3s;"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" style="color:white; font-size: 1.2rem; opacity: 0.5; transition: 0.3s;"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.8rem;">&copy; 2026 Nebula Universe. Create With ❤️</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar blur effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Hamburger
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+
+        // Copy IP
+        function copyIP() {
+            navigator.clipboard.writeText('play.nebula.com');
+            alert('IP Address Copied to Clipboard');
+        }
+    </script>
+</body>
+</html>
